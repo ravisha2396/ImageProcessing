@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<head>
+  <style>
+    h1{
+      position:relative;
+      left:-13%;
+      color:white;
+    }
+    body{
+      margin:auto;
+      width:50%;
+    }
+    form{
+    margin:auto;
+    width:80%;
+    }
+    .home-btn{
+      position:absolute;
+      left:75%;
+      top: 4.8%;
+    }
+    img{
+      position:absolute;
+      left:20%;
+      top:15%;
+      border: 1px solid white;
+      max-width:100%;
+      height:auto;
+    }
+    p{
+    color: white;
+    }
+  </style>
+</head>
+
+<h1><center>N Estimation for Rice Leaves</center></h1>
+  <form method="post" action="capture" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input name="image" type="file" accept="image/*" capture="environment">
+    <button type="submit">Upload</button>
+  </form>
+
+
+
+  {% if uploaded_file_url %}
+    <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+    <p>N% required for the rice crop: {{ result }} </p>
+  {% endif %}
+  <form action="remove" method="get">
+   <!-- <div class="home-btn"><p><a href="{% url 'home' %}">Clear</a></p></div> -->
+    {% csrf_token %}
+    <div class="home-btn"><button type="submit">Clear</button></div>
+  </form>
+ <!-- {% if status %}
+    <p>Done</p>
+  {% endif %} -->
+  <img src="static/image/rice.jpg">
+{% endblock %}
+
+</html>
